@@ -281,17 +281,17 @@ export default function App() {
 
   const handleSaveDish = async (e: FormEvent) => {
     e.preventDefault()
-    if (!editingItem || !editingItem.name || !editingItem.price) return
+    if (!editingItem || !editingItem.name || editingItem.price === undefined) return
 
     try {
       const payload = {
-        id: editingItem.id,
+        id: editingItem.id || undefined,
         name: editingItem.name,
         description: editingItem.description || '',
         price: Number(editingItem.price),
         image: editingItem.image || HERO_IMAGE,
-        tag: editingItem.tag || null,
-        categoryId: 'cmv9oi6iy0000tjos79igrcuh', // Default category ID link
+        tag: editingItem.tag || undefined,
+        categoryName: editingItem.category || 'Breakfast',
       }
 
       const res = await fetch('http://localhost:5000/api/menu/items', {
@@ -300,10 +300,13 @@ export default function App() {
         body: JSON.stringify(payload),
       })
 
-      if (!res.ok) throw new Error('Failed to save dish')
+      if (!res.ok) {
+        const errData = await res.json().catch(() => ({}))
+        throw new Error(errData.error || 'Failed to save dish')
+      }
 
       const savedItem = await res.json()
-      
+
       if (editingItem.id) {
         setDishes((prev) => prev.map((d) => (d.id === savedItem.id ? { ...d, ...savedItem } : d)))
       } else {
@@ -313,11 +316,10 @@ export default function App() {
       setIsEditing(false)
       setEditingItem(null)
     } catch (err) {
-      console.error(err)
-      alert('Error saving dish.')
+      console.error('[dish] save error:', err)
+      alert(err instanceof Error ? err.message : 'Error saving dish.')
     }
   }
-
   return (
     <div className="flex min-h-screen flex-col bg-stone-50 font-sans">
       {/* ── Hero header (home) ─────────────────────────────── */}

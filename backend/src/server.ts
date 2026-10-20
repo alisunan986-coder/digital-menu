@@ -123,70 +123,90 @@ app.get(
 app.post(
   '/api/menu/items',
   asyncHandler(async (req, res) => {
-    const { id, name, description, price, image, tag, categoryId, categoryName } = (req.body ?? {}) as {
+    const { id, name, description, price, image, tag, categoryName } = (req.body ?? {}) as {
       id?: unknown
       name?: unknown
       description?: unknown
       price?: unknown
       image?: unknown
       tag?: unknown
-      categoryId?: unknown
       categoryName?: unknown
     }
 
     if (typeof name !== 'string' || name.trim() === '') {
-      res.status(400).json({ error: 'Field "name" is required and must be a non-empty string.' })
-      return
-    }
-    if (typeof price !== 'number' || !Number.isFinite(price) || price < 0) {
-      res.status(400).json({ error: 'Field "price" must be a non-negative number (ETB).' })
+      res.status(400).json({ error: 'Field "name" is required.' })
       return
     }
 
-    // Auto-resolve categoryId if missing or unlinked
-    let resolvedCategoryId: string | null = typeof categoryId === 'string' && categoryId !== '' ? categoryId : null
+    const parsedPrice = typeof price === 'number' ? price : parseFloat(String(price))
+    if (isNaN(parsedPrice) || parsedPrice < 0) {
+      res.status(400).json({ error: 'Field "price" must be a positive number.' })
+      return
+    }
 
-    if (!resolvedCategoryId) {
-      const targetCategoryName = typeof categoryName === 'string' && categoryName.trim() !== '' ? categoryName.trim() : 'General'
-      
-      let category = await prisma.category.findFirst({
-        where: { name: targetCategoryName },
+    // 1. Get or create default restaurant with all required schema properties
+    let restaurant = await prisma.restaurant.findFirst()
+    if (!restaurant) {
+      restaurant = await prisma.restaurant.create({
+        data: {
+          name: 'Taem Restaurant',
+          slug: 'taem-restaurant',
+          tagline: 'Authentic Flavors',
+          subTagline: 'Traditional Ethiopian Cuisine',
+          hours: 'Open daily from 6:30 AM',
+          location: 'Addis Ababa, Ethiopia',
+        },
       })
-
-      if (!category) {
-        // Find default restaurant or fallback
-        const restaurant = await prisma.restaurant.findFirst()
-        if (!restaurant) {
-          res.status(400).json({ error: 'No restaurant found in database.' })
-          return
-        }
-
-        category = await prisma.category.create({
-          data: {
-            name: targetCategoryName,
-            restaurantId: restaurant.id,
-          },
-        })
-      }
-
-      resolvedCategoryId = category.id
     }
 
-    const data = {
+    // 2. Get or create matching category
+    const catName =
+      typeof categoryName === 'string' && categoryName.trim() !== ''
+        ? categoryName.trim()
+        : 'General'
+
+    let category = await prisma.category.findFirst({
+      where: {
+        name: catName,
+        restaurantId: restaurant.id,
+      },
+    })
+
+    if (!category) {
+      category = await prisma.category.create({
+        data: {
+          name: catName,
+          restaurantId: restaurant.id,
+        },
+      })
+    }
+
+    // 3. Prepare item data
+    const itemData = {
       name: name.trim(),
-      description: typeof description === 'string' ? description : '',
-      price,
-      image: typeof image === 'string' && image.trim() !== '' ? image : 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80',
-      tag: typeof tag === 'string' && tag.trim() !== '' ? tag : null,
-      categoryId: resolvedCategoryId,
+      description: typeof description === 'string' ? description.trim() : '',
+      price: parsedPrice,
+      image:
+        typeof image === 'string' && image.trim() !== ''
+          ? image.trim()
+          : 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80',
+      tag: typeof tag === 'string' && tag.trim() !== '' ? tag.trim() : null,
+      categoryId: category.id,
     }
 
-    const item =
-      typeof id === 'string' && id !== ''
-        ? await prisma.menuItem.update({ where: { id }, data })
-        : await prisma.menuItem.create({ data })
-
-    res.status(typeof id === 'string' && id !== '' ? 200 : 201).json(item)
+    // 4. Create or Update in SQLite database
+    if (typeof id === 'string' && id.trim() !== '') {
+      const updatedItem = await prisma.menuItem.update({
+        where: { id: id.trim() },
+        data: itemData,
+      })
+      res.status(200).json(updatedItem)
+    } else {
+      const newItem = await prisma.menuItem.create({
+        data: itemData,
+      })
+      res.status(201).json(newItem)
+    }
   }),
 )
 
