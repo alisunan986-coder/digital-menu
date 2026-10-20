@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "CommonJS",
+    "moduleResolution": "node",
+    // TS 6.0 turns node10 resolution into a hard error unless this is set
+    // (it stops functioning entirely in 7.0). Silences the deprecation only —
+    // every type check stays enabled. Before upgrading to TS 7, remove this
+    // and migrate to "module": "nodenext" / "moduleResolution": "nodenext".
+    "ignoreDeprecations": "6.0",
+    "lib": ["ES2022"],
+    "types": ["node"],
+    "outDir": "dist",
+    "rootDir": "src",
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
+  },
+  "include": ["src"]
+}

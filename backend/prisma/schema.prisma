@@ -1,0 +1,68 @@
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+/// The restaurant shown in the digital menu app.
+model Restaurant {
+  id         String     @id @default(cuid())
+  slug       String     @unique
+  name       String
+  tagline    String
+  subTagline String
+  /// JSON-encoded opening hours, e.g. [{"days":"Monday – Friday","time":"6:30 AM – 10:00 PM"}]
+  hours      String
+  location   String
+  createdAt  DateTime   @default(now())
+  updatedAt  DateTime   @updatedAt
+  categories Category[]
+  feedback   Feedback[]
+}
+
+/// A menu section such as Breakfast, Lunch, Snacks, Juices, Hot Drinks, Drinks.
+model Category {
+  id           String     @id @default(cuid())
+  name         String
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  menuItems    MenuItem[]
+  createdAt    DateTime   @default(now())
+
+  @@index([restaurantId])
+}
+
+/// A single dish with its ETB price and photo.
+model MenuItem {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  /// Price in Ethiopian Birr (ETB)
+  price       Float
+  image       String
+  /// Optional badge, e.g. "Chef's Special", "Vegan", "Bestseller"
+  tag         String?
+  categoryId  String
+  category    Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([categoryId])
+}
+
+/// A 5-star customer review left through the Send Feedback screen.
+model Feedback {
+  id           String     @id @default(cuid())
+  /// Integer 1–5
+  rating       Int
+  customerName String?
+  comment      String     @default("")
+  restaurantId String
+  restaurant   Restaurant @relation(fields: [restaurantId], references: [id], onDelete: Cascade)
+  createdAt    DateTime   @default(now())
+
+  @@index([restaurantId])
+}
