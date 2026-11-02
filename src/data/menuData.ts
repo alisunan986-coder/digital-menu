@@ -38,13 +38,13 @@ export const RESTAURANT = {
   tagline: 'Taste Worth Waiting For',
   subTagline: 'Patience Meets Perfection',
   currency: 'ETB',
-  established: 2016,
-  address: 'Bole Medhanialem, Church Road, Addis Ababa, Ethiopia',
-  phone: '+251 911 24 86 42',
+  established: 2019,
+  address: 'Kebele 14 ke noc wede Akotet bemiwesdew menged 100m geba belo, Bahir Dar, Ethiopia',
+  phone: '+251 909090909',
   hours: [
-    { days: 'Monday – Friday', time: '6:30 AM – 10:00 PM' },
-    { days: 'Saturday', time: '7:00 AM – 11:00 PM' },
-    { days: 'Sunday', time: '8:00 AM – 9:00 PM' },
+    { days: 'Monday – Friday', time: '2:00 AM – 3:00 PM' },
+    { days: 'Saturday', time: '2:30 AM – 3:00 PM' },
+    { days: 'Sunday', time: '8:00 AM – 4:00 PM' },
   ],
   copyright: `© ${new Date().getFullYear()} Taem Kitchen. All rights reserved.`,
 } as const
@@ -62,18 +62,20 @@ export const MENU_ITEMS: MenuItem[] = [
       'https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?auto=format&fit=crop&w=800&q=80',
     tag: 'Traditional',
   },
-  {
-    id: 'firfir',
-    name: 'Firfir',
-    description: 'Injera pieces tossed in a rich berbere butter sauce — choose lamb or lentil.',
-    price: 310,
+ {
+    id: 'injera-firfir',
+    name: 'Injera Firfir',
+    description:
+      'Torn injera pieces tossed in a savory berbere sauce with onions, tomatoes, and spiced butter.',
+    price: 220,
     category: 'Breakfast',
     image:
-      'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1588675646184-f5b0b0b0b2de?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegetarian',
   },
   {
-    id: 'genfo',
-    name: 'Genfo',
+    id: 'fetira',
+    name: 'Fetira',
     description: 'Thick barley porridge with a well of spiced butter and berbere, finished with honey.',
     price: 190,
     category: 'Breakfast',
@@ -81,19 +83,19 @@ export const MENU_ITEMS: MenuItem[] = [
       'https://images.unsplash.com/photo-1490645935967-10de6ba17061?auto=format&fit=crop&w=800&q=80',
   },
   {
-    id: 'ful-medames',
-    name: 'Ful Medames',
-    description:
-      'Slow-simmered fava beans dressed with olive oil, lemon, tomato and a whisper of chilli.',
-    price: 250,
-    category: 'Breakfast',
-    image:
-      'https://images.unsplash.com/photo-1512621776951-a57141f2eefd?auto=format&fit=crop&w=800&q=80',
-    tag: 'Vegetarian',
-  },
+  id: 'enkulal firfir',
+  name: 'Enkulal Firfir',
+  description:
+    'Ethiopian scrambled eggs sauteed with red onions, tomatoes, green chilies, and rich spiced butter.',
+  price: 250,
+  category: 'Breakfast',
+  image:
+    'https://images.unsplash.com/photo-1525351484163-7529414344d8?auto=format&fit=crop&w=800&q=80',
+  tag: 'Vegetarian',
+},
   {
-    id: 'lamb-soup',
-    name: 'Lamb Soup',
+    id: 'ful',
+    name: 'Ful',
     description: 'Slow-cooked lamb broth with fresh rosemary and herbs, served with warm bread.',
     price: 340,
     category: 'Breakfast',
@@ -103,61 +105,300 @@ export const MENU_ITEMS: MenuItem[] = [
 
   /* ── Lunch ─────────────────────────────────────────────── */
   {
-    id: 'doro-wot',
-    name: 'Doro Wot',
+    id: 'mulu doro-grilled',
+    name: 'Mulu Doro-Grilled',
     description: 'Chicken leg slow-braised for hours in berbere sauce, with egg, ayib and injera.',
-    price: 680,
+    price: 3000,
     category: 'Lunch',
     image:
       'https://images.unsplash.com/photo-1585937421612-70a008356fbe?auto=format&fit=crop&w=800&q=80',
     tag: "Chef's Special",
   },
   {
-    id: 'beef-tibs',
-    name: 'Beef Tibs',
+    id: 'mulu doro roasted',
+    name: 'Mulu Doro Roasted',
     description: 'Tender beef cubes seared with rosemary, jalapeño and caramelised onions.',
-    price: 590,
+    price: 3000,
     category: 'Lunch',
     image:
       'https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=800&q=80',
     tag: 'Spicy',
   },
   {
-    id: 'kitfo',
-    name: 'Kitfo',
+    id: 'mulu doro',
+    name: 'Mulu Doro',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 3000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+    {
+    id: 'gimash doro',
+    name: 'Gimash Doro',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+    {
+    id: 'special shawerma',
+    name: 'Special Shawerma',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1300,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+   {
+    id: 'normal shawerma',
+    name: 'Normal Shawerma',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1300,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+   {
+    id: 'mulu asa be ruz',
+    name: 'Mulu Asa Be Ruz',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 2500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+   {
+    id: 'doro kotelate be ruz',
+    name: 'Doro Kotelate Be Ruz',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 2500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+    {
+    id: 'doro kotelate be kita',
+    name: 'Doro Kotelate Be Kita',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1300,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+    {
+    id: 'chicken rapp',
+    name: 'Chiken Rapp',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+    {
+    id: 'tsam special burger',
+    name: 'Tsam Special Burger',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 600,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'tsam special pizza',
+    name: 'Tsam Special Pizza',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 600,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'dirdir burger',
+    name: 'Dirdir Burger',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'club sanduchi',
+    name: 'Club Sanduchi',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 600,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  
+  
+  
+  
+  {
+    id: 'doro wet ',
+    name: 'Doro Wot',
     description: 'Minced beef warmed in spiced mitmita butter — served leb leb or fully cooked.',
-    price: 750,
+    price: 850,
     category: 'Lunch',
     image:
       'https://images.unsplash.com/photo-1600891964092-4316c288032e?auto=format&fit=crop&w=800&q=80',
     tag: "Chef's Special",
   },
   {
-    id: 'misir-wot',
-    name: 'Misir Wot',
+    id: 'taem nigus',
+    name: 'Tsam Nigus',
     description: 'Red lentils simmered in a fragrant berbere onion stew, served with injera.',
-    price: 330,
+    price: 4000,
     category: 'Lunch',
     image:
       'https://images.unsplash.com/photo-1587502537745-84b86da1204f?auto=format&fit=crop&w=800&q=80',
     tag: 'Vegan',
   },
   {
-    id: 'shiro-tegamino',
-    name: 'Shiro Tegamino',
+    id: 'yebeg tibs',
+    name: 'Yebeg Tibs',
     description: 'Silky chickpea stew bubbling in a clay pot, straight from the oven.',
-    price: 310,
+    price: 600,
     category: 'Lunch',
     image:
       'https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&w=800&q=80',
     tag: 'Vegan',
   },
   {
-    id: 'beyaynetu',
-    name: 'Beyaynetu',
+    id: 'tibs special',
+    name: 'Tibs Special',
     description:
       'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
-    price: 470,
+    price: 1300,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+
+  {
+    id: 'special gomen be sega',
+    name: 'Special Gomen Be Sega',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+
+  {
+    id: 'normal kobo ',
+    name: 'Normal Kobo',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 2000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+
+  {
+    id: 'ye sega masero',
+    name: 'Ye Sega Masero',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 2500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'ye beg dulet',
+    name: 'Ye Beg Dulet',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'special chikna',
+    name: 'Special Chikna',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 1500,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'special kobo',
+    name: 'Special Kobo',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 4000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+
+{
+    id: 'tsam hageregnia',
+    name: 'Tsam Hageregnia',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 4000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'zizlzil tibs grilled',
+    name: 'Zizlzil Tibs Grilled',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 2000,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
+  },
+  {
+    id: 'fanta fanto',
+    name: 'Fanta Fanto',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 4000,
     category: 'Lunch',
     image:
       'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
@@ -175,6 +416,7 @@ export const MENU_ITEMS: MenuItem[] = [
       'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80',
     tag: 'Spicy',
   },
+
   {
     id: 'kifli',
     name: 'Kifli',
@@ -253,6 +495,17 @@ export const MENU_ITEMS: MenuItem[] = [
     image:
       'https://images.unsplash.com/photo-1613478223719-2ab802602423?auto=format&fit=crop&w=800&q=80',
     tag: 'Fresh Pressed',
+  },
+  {
+    id: 'ergo be wancha',
+    name: 'Ergo Be Wancha ',
+    description:
+      'A fasting platter of four vegetarian stews, salads and injera — entirely plant-based.',
+    price: 200,
+    category: 'Lunch',
+    image:
+      'https://images.unsplash.com/photo-1546069901-ba9599a7e63c?auto=format&fit=crop&w=800&q=80',
+    tag: 'Vegan',
   },
 
   /* ── Hot Drinks ────────────────────────────────────────── */
